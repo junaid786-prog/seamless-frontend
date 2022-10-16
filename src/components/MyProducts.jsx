@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import APIPRODUCTS from '../utitlity/APIProducts'
 const MyProducts = ({user}) => {
     const [category, setCategory] = useState('Games Slot')
-    const [productsList, setProductsList] = useState(user && user.userType === 'Admin' ? APIPRODUCTS :user.products)
+    const [productsList, setProductsList] = useState(user && (user.userType === 'Admin' || user.userType === 'Sub Admin') ? APIPRODUCTS :user.products)
     const Categories = ["Games Slot", "Trading", "Live Casino", "Sportbook", "Poker"]
 
     return (

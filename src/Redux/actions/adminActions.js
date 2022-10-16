@@ -41,7 +41,7 @@ const config = {
   },
   withCredentials: true,
 }
-const basicUrl = "https://api-seamless.herokuapp.com/api/admin"
+const basicUrl = "http://localhost:8000/api/admin"
 
 export const createSubAdminAction = (subAdminData) => async (dispatch) => {
   dispatch({
@@ -132,7 +132,7 @@ export const editSubAdminAction =
       )
       dispatch({
         type: EDIT_SUBADMIN_SUCCESS,
-        payload: res.data.subAdmin,
+        payload: res.data,
       })
     } catch (err) {
       dispatch({

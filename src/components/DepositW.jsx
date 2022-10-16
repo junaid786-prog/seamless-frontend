@@ -28,7 +28,7 @@ const DepositW = ({ }) => {
 
     // const { myTransactions, loading } = useSelector(state => state.myTransactions)
     const { load, isCreditted, error } = useSelector(state => state.creditAgent)
-    const {Wloading, isWithdrawn, WError} = useSelector(state => state.withdrawAgent)
+    const {Wloading, isWithdrawn, message, WError} = useSelector(state => state.withdrawAgent)
     const { loading, myAgents } = useSelector(state => state.myAgents)
 
     useEffect(() => {
@@ -45,26 +45,19 @@ const DepositW = ({ }) => {
 
     }, [ready, load, error, isCreditted, alert])
 
-    // useEffect(() => {
-    //     console.log(766)
-    //     if (ready1) {
-    //         console.log(5444)
-    //         console.log(Wloading)
-    //         if (Wloading) {
-    //             console.log('not loading')
-    //             if (isWithdrawn) {
-    //                 console.log('final')
-    //                 alert.show('balance is successfully withdrawn')
-    //             }
-    //             else {
-    //                 console.log(WError)
-    //                 console.log('baddd')
-    //                 alert.error(WError)
-    //             }
-    //         }
-    //     }
+    useEffect(() => {
+        if (ready1) {
+            if (!Wloading) {
+                if (isWithdrawn && message) {
+                    alert.show(message)
+                }
+                else {
+                    alert.error(WError)
+                }
+            }
+        }
 
-    // }, [ready1, Wloading, isWithdrawn, alert, WError])
+    }, [ready1, message, Wloading, isWithdrawn, alert, WError])
 
     const depositBalance = (victimId) => {
         setDisplay(true)
@@ -86,7 +79,7 @@ const DepositW = ({ }) => {
             setReady(true)
         } else {
             dispatch(withdrawAgentAction(submitData, victimId))
-            //setReady(false)
+            setReady(false)
             setReady1(true)
         }
         setTimeout(() => {

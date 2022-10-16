@@ -2,6 +2,8 @@ import {
   CHANGE_MY_PASSWORD_FAIL,
   CHANGE_MY_PASSWORD_REQUEST,
   CHANGE_MY_PASSWORD_SUCCESS,
+  GET_MY_TYPE_REQUEST,
+  GET_MY_TYPE_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -18,10 +20,10 @@ const config = {
   headers: {
     "content-Type": "application/json",
   },
-  //withCredentials: true,
+  withCredentials: true,
 }
-const basicUrl = "https://api-seamless.herokuapp.com/api/"
-
+//const basicUrl = "https://api-seamless.herokuapp.com/api/"
+const basicUrl = 'http://localhost:8000/api/'
 export const loginUserAction = (loginData) => async (dispatch) => {
   dispatch({
     type: USER_LOGIN_REQUEST,
@@ -88,6 +90,24 @@ export const logoutUserAction = async (dispatch) => {
   } catch (err) {
     dispatch({
       type: USER_LOGOUT_FAIL,
+      payload: err.response.data.message,
+    })
+  }
+}
+
+export const getMyType = async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_MY_TYPE_REQUEST,
+    })
+    const res = await axios.get(basicUrl + "user/mytype", config)
+    dispatch({
+      type: GET_MY_TYPE_SUCCESS,
+      payload: res.data.userType,
+    })
+  } catch (err) {
+    dispatch({
+      type: GET_MY_TYPE_SUCCESS,
       payload: err.response.data.message,
     })
   }

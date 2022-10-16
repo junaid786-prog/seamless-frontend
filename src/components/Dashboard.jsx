@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import banner1 from '../img/banner-1.jpg'
+import { getMyAgentsAction } from '../Redux/actions/adminActions'
 import MyProducts from './MyProducts'
 const Dashboard = ({ user }) => {
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getMyAgentsAction)
+    }, [dispatch])
+    const {loading, myAgents} = useSelector(state=>state.myAgents)
+    
     return (
         <div className='dashboard'>
             <div className='dashboard_tab'>
@@ -33,15 +41,15 @@ const Dashboard = ({ user }) => {
                     <div className='info_box_bottom downline_bottom'>
                         <div className='downline_combo'>
                             <p>Reseller</p>
-                            <p>0</p>
+                            <p>{loading ? 'loading': !loading && myAgents && myAgents.filter(agent=>agent.positionType === 'Reseller').length}</p>
                         </div>
                         <div className='downline_combo'>
                             <p>Agent</p>
-                            <p>0</p>
+                            <p>{loading ? 'loading': !loading && myAgents && myAgents.filter(agent=>agent.positionType === 'Agent').length}</p>
                         </div>
                         <div className='downline_combo'>
                             <p>Reseller</p>
-                            <p>0</p>
+                            <p>{loading ? 'loading': !loading && myAgents && myAgents.filter(agent=>agent.positionType === 'Reseller').length}</p>
                         </div>
                     </div>
                 </div>

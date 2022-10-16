@@ -10,6 +10,10 @@ export const USER_LOGOUT_REQUEST = "user_logout_request"
 export const USER_LOGOUT_SUCCESS = "user_logout_success"
 export const USER_LOGOUT_FAIL = "user_logout_fail"
 
+export const GET_MY_TYPE_REQUEST = "get_my_type__request"
+export const GET_MY_TYPE_SUCCESS = "get_my_type__success"
+export const GET_MY_TYPE_FAIL =    "get_my_type__fail"
+
 export const CHANGE_MY_PASSWORD_REQUEST = "change_my_password_request"
 export const CHANGE_MY_PASSWORD_SUCCESS = "change_my_password_success"
 export const CHANGE_MY_PASSWORD_FAIL = "change_my_password_fail"

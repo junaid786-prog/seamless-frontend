@@ -90,7 +90,12 @@ const AddAgent = ({ changeSubSidebarIndex }) => {
                     alert.show('agent is successfully created')
                     changeSubSidebarIndex(2)
                 } else if (error) {
-                    console.log(error)
+                    if (typeof error === "string") alert.error(error)
+                    else {
+                        for (let err in error) {
+                            alert.error(error[err])
+                        }
+                    }
                 }
             }
         }
@@ -99,9 +104,8 @@ const AddAgent = ({ changeSubSidebarIndex }) => {
 
     const sendData = () => {
         if (password === confirmPassword) {
-            setReady(true)
-
             dispatch(createAgentAction(AgentData))
+            setReady(true)
             setTimeout(() => {
                 dispatch(userProfileAction)
             }, 2000);

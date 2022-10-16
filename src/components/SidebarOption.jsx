@@ -20,7 +20,7 @@ const SidebarOption = ({ option, sidebarOption, changeSidebarOption, index, subS
         </div>
       </div>
       <div className={active ? 'sidebar_opt_below' :'d_none'}>
-        {option && option.hasChild && option.childs.map((child, i)=>{
+        {option && option.hasChild && option.childs && option.childs.map((child, i)=>{
           return <div className='sub_sidebar_option' 
           onClick={()=>{changeSidebarOption(index); changeSubSidebarIndex(i+1)}}
           key={i}>

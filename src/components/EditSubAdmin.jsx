@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
-import { createSubAdminAction, editSubAdminAction } from '../Redux/actions/adminActions'
-const EditSubAdmin = ({changeDisplay,subAdmin}) => {
+import { editSubAdminAction, getMySubAdminsAction } from '../Redux/actions/adminActions'
+const EditSubAdmin = ({ changeDisplay, subAdmin }) => {
     const [userName, setUserName] = useState('')
     const [name, setName] = useState(subAdmin.name)
     const [password, setPassword] = useState('')
@@ -15,28 +15,32 @@ const EditSubAdmin = ({changeDisplay,subAdmin}) => {
     const [ready, setReady] = useState(false)
 
     const dispatch = useDispatch()
-    const alert = useAlert() 
+    const alert = useAlert()
 
     const Permissions = [
-        { name: 'acccount', value: account },
+        { name: 'account', value: account },
         { name: 'management', value: management },
         { name: 'report', value: report },
         { name: 'payment', value: payment },
     ]
 
     const SubAccountData = {
-        userName, name, password, phone: phone ? phone : undefined, Permissions
+        userName, name, password, phone: phone ? phone : undefined, permissions: Permissions
     }
 
-    const { isCreated, error, loading } = useSelector(state => state.createdSubAdmin)
+    const { isEditted, error, loading } = useSelector(state => state.edittedSubAdmin)
 
     useEffect(() => {
         if (ready) {
             if (!loading) {
-                if (isCreated) {
-                    alert.show('sub admin is successfully created')
+                if (isEditted) {
+                    alert.show('sub admin is successfully updated')
+                    changeDisplay(true)
+                    setTimeout(() => {
+                        dispatch(getMySubAdminsAction)
+                    }, 2000);
                 }
-                else if (error) {
+                else {
                     if (typeof error === "string") alert.error(error)
                     else {
                         for (let err in error) {
@@ -47,10 +51,9 @@ const EditSubAdmin = ({changeDisplay,subAdmin}) => {
             }
         }
 
-    }, [ready, loading, isCreated, error])
+    }, [ready, loading, isEditted, error])
     const submitData = () => {
         dispatch(editSubAdminAction(SubAccountData, subAdmin._id))
-        changeDisplay(true)
         setReady(true)
     }
 

@@ -2,6 +2,9 @@ import {
   CHANGE_MY_PASSWORD_FAIL,
   CHANGE_MY_PASSWORD_REQUEST,
   CHANGE_MY_PASSWORD_SUCCESS,
+  GET_MY_TYPE_FAIL,
+  GET_MY_TYPE_REQUEST,
+  GET_MY_TYPE_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -106,6 +109,30 @@ export const ChangeMyPassword = (state = {}, action) => {
         loading: false,
         success: false,
         message: action.payload,
+      }
+    default:
+      return { ...state }
+  }
+}
+
+export const GetMyType = (state = {}, action) => {
+  switch (action.type) {
+    case GET_MY_TYPE_REQUEST:
+      return {
+        loading: true,
+        userType: null
+      }
+    case GET_MY_TYPE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        userType: action.payload
+      }
+    case GET_MY_TYPE_FAIL:
+      return {
+        loading: false,
+        success: false,
+        error: action.payload,
       }
     default:
       return { ...state }

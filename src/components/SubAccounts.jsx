@@ -36,6 +36,16 @@ const SubAccounts = () => {
             dispatch(getMySubAdminsAction)
         }, 2000);
     }
+    const getValue = (user, type) => {
+        if (user && user.permissions) {
+            let pers = user.permissions
+            for (let i = 0; i < pers.length; i++) {
+                if (pers[i].name === type) {
+                    return pers[i].value
+                }
+            }
+        }
+    }
     return (
         <>
             {
@@ -52,11 +62,13 @@ const SubAccounts = () => {
                                     <th>Credit</th>
                                     <th>Level</th>
                                     <th>Bet Type</th>
-                                    <th>Person In Charge</th>
+                                    <th>Account</th>
+                                    <th>Management</th>
+                                    <th>Payment</th>
+                                    <th>Report</th>
                                     <th>Create Date</th>
                                     <th>Last Login Date</th>
                                     <th>Last Login IP</th>
-                                    <th>Status</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
@@ -74,15 +86,17 @@ const SubAccounts = () => {
                                             <td>{sub && sub.credit}</td>
                                             <td>{sub && sub.level}</td>
                                             <td>{sub && sub.betType ? sub.betType : 'null'}</td>
-                                            <td>{sub && sub.personInCharge ? sub.personInCharge : 'null'}</td>
+                                            <td>{sub && sub.permissions ? getValue(sub, 'account') : 'null'}</td>
+                                            <td>{sub && sub.permissions ? getValue(sub, 'management') : 'null'}</td>
+                                            <td>{sub && sub.permissions ? getValue(sub, 'payment') : 'null'}</td>
+                                            <td>{sub && sub.permissions ? getValue(sub, 'report') : 'null'}</td>
                                             <td>{sub && sub.creationDate ? sub.creationDate : 'null'}</td>
                                             <td>{sub && sub.lastLoginDate ? sub.lastLoginDate : 'null'}</td>
                                             <td>{sub && sub.loginIp ? sub.loginIp : 'null'}</td>
-                                            <td>{sub && sub.status}</td>
-                                            <td><Edit onClick = {()=>{
+                                            <td><Edit onClick={() => {
                                                 setSubAdmin(sub)
                                                 setDisplay(false)
-                                            }}/></td>
+                                            }} /></td>
                                             <td><Delete onClick={() => deleteUser(sub._id)} /></td>
                                         </tr>
                                     )
@@ -92,7 +106,7 @@ const SubAccounts = () => {
                         </table>
                     </div>
                 </div>) :
-                    <EditSubAdmin subAdmin = {subAdmin} changeDisplay = {setDisplayFun}/>
+                    <EditSubAdmin subAdmin={subAdmin} changeDisplay={setDisplayFun} />
             }
         </>
     )

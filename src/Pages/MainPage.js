@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { ColorRing } from "react-loader-spinner"
 import { useDispatch, useSelector } from "react-redux"
 import Account from "../components/Account"
 import Dashboard from "../components/Dashboard"
@@ -28,7 +29,15 @@ const MainPage = () => {
   return (
     <div>
       {loading ? (
-        <div> loading</div>
+         <ColorRing
+         visible={true}
+         height="50"
+         width="50"
+         ariaLabel="blocks-loading"
+         wrapperStyle={{width : '20vw', height: '20vh'}}
+         wrapperClass="blocks-wrapper"
+         colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+       />
       ) : (
         <div className="main_page">
           <div className="sidebar_part">

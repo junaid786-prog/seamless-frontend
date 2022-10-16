@@ -18,14 +18,14 @@ const AddSubAccount = ({changeSubSidebarIndex, main_user}) => {
     const alert = useAlert() 
 
     const Permissions = [
-        { name: 'acccount', value: account },
+        { name: 'account', value: account },
         { name: 'management', value: management },
         { name: 'report', value: report },
         { name: 'payment', value: payment },
     ]
 
     const SubAccountData = {
-        userName, name, password, phone: phone ? phone : undefined, Permissions
+        userName, name, password, phone: phone ? phone : undefined, permissions: Permissions
     }
 
     const { isCreated, error, loading } = useSelector(state => state.createdSubAdmin)
@@ -50,6 +50,7 @@ const AddSubAccount = ({changeSubSidebarIndex, main_user}) => {
 
     }, [ready, loading, isCreated, error])
     const submitData = () => {
+        console.log(SubAccountData)
         dispatch(createSubAdminAction(SubAccountData))
         setReady(true)
     }

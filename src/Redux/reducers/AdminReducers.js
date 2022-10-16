@@ -32,6 +32,7 @@ import {
   GET_MY_TRANSACTIONS_FAIL,
   GET_MY_TRANSACTIONS_REQUEST,
   GET_MY_TRANSACTIONS_SUCCESS,
+  WITHDRAW_AGENT_FAIL,
   WITHDRAW_AGENT_REQUEST,
   WITHDRAW_AGENT_SUCCESS,
 } from "../constants/adminConstants"
@@ -318,7 +319,7 @@ export const WithdrawAgent = (state = {}, action) => {
         isWithdrawn: true,
         message: action.payload,
       }
-    case DELETE_AGENT_FAIL:
+    case WITHDRAW_AGENT_FAIL:
       return {
         Wloading: false,
         isWithdrawn: false,

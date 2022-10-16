@@ -11,6 +11,8 @@ import {
   CreateSubAdmin,
   CreditAgent,
   DeleteSubAdmin,
+  EditAgent,
+  EditSubAdmin,
   GetMyAgents,
   GetMySubAdmins,
   GetMyTransactions,
@@ -36,6 +38,9 @@ const RootReducer = combineReducers({
   mySubAdmins: GetMySubAdmins,
   myAgents: GetMyAgents,
   myTransactions: GetMyTransactions,
+
+  edittedAgent: EditAgent,
+  edittedSubAdmin: EditSubAdmin
 })
 const Store = createStore(
   RootReducer,
